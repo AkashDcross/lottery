@@ -1,0 +1,298 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace Lottery_Interface.Pages
+{
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class Lotto : Page
+    {
+        //setting global varables 
+        List<String> lottotickets;
+        int tempholder;
+
+        int bonus;
+        int[] currentBall;
+        int[] sortedBalls_LH;
+        int[] sortedBalls_HL;
+
+
+        public Lotto()
+        {
+            this.InitializeComponent();
+            //initialising list
+
+            lottotickets = new List<String>();
+
+
+
+
+
+
+
+        }
+
+        public void TicketCreation(object sender, RoutedEventArgs e)
+
+        {
+
+
+
+            display.Items.Clear();
+            
+            // catches the balls in a temporary array
+
+            int[] currentBalls ={ Convert.ToInt32(num1.Text), Convert.ToInt32(num2.Text), Convert.ToInt32(num3.Text), Convert.ToInt32(num4.Text), Convert.ToInt32(num5.Text), Convert.ToInt32(num6.Text) };
+
+
+            // creating a variable to hold the current balls for display
+            var addTicket = currentBalls;
+
+
+
+
+            bonus = Convert.ToInt32(num7.Text);
+
+          
+
+            //sorting algorithms
+            bubbleSortlh(currentBalls);
+            bubbleSorthl(currentBalls);
+
+
+            
+          // joining the numbers together as a stirng of numbers and then adding the bonus number to the end
+            var joinTicket = string.Join("  ,  ", addTicket);
+            lottotickets.Add(joinTicket +", " + bonus);
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /* foreach (var ticket in lottotickets )
+              {
+
+                  dispListbox.Items.Add(ticket);
+
+
+              }*/
+
+
+
+
+        }
+
+
+        private void bubbleSorthl(int[] currentBalls)
+        {
+
+            bool swapped = true;
+
+
+
+
+            while (swapped == true)
+            {
+                swapped = false;
+
+
+
+                for (int y = 0; y < currentBalls.Length - 1; y++)
+                {
+                    // If the highest value to lowest is required then change the operator to <
+                    if (currentBalls[y] < currentBalls[y + 1])
+                    {
+                        swapped = true;
+                        int temp = currentBalls[y];
+                        currentBalls[y] = currentBalls[y + 1];
+                        currentBalls[y + 1] = temp;
+                    }
+                }
+
+                sortedBalls_HL = currentBalls;
+
+             
+            }
+
+
+            var balls_HL = sortedBalls_HL;
+
+
+
+
+
+            var result2 = string.Join("  ,  ", balls_HL);
+
+            // lottotickets.Add(result);
+
+            display.Items.Add(result2);
+
+
+
+
+
+
+        }
+
+
+
+
+        private void bubbleSortlh(int[] currentBalls)
+        {
+            bool swapped = true;
+
+
+
+
+            while (swapped == true)
+            {
+                swapped = false;
+
+
+
+                for (int y = 0; y < currentBalls.Length - 1; y++)
+                {
+                    // If the highest value to lowest is required then change the operator to <
+                    if (currentBalls[y] > currentBalls[y + 1])
+                    {
+                        swapped = true;
+                        int temp = currentBalls[y];
+                        currentBalls[y] = currentBalls[y + 1];
+                        currentBalls[y + 1] = temp;
+                    }
+                }
+
+                sortedBalls_LH= currentBalls;
+
+              
+            }
+
+            var balls_LH = sortedBalls_LH;
+
+            var result = string.Join("  ,  ", balls_LH);
+
+            display.Items.Add(result);
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+        private void RandomTicket(object sender, RoutedEventArgs e)
+        {
+          //random number gen
+
+            Random random = new Random();
+            for (int i = 1; i <= 7; i++)
+            {
+                int range = random.Next(49) + 1;
+
+                if (i == 1 )
+                     num1.Text = range.ToString();
+
+                if (i ==2)
+                     num2.Text = range.ToString();
+
+                if (i ==3)
+                    num3.Text = range.ToString();
+
+
+                if (i ==4)
+                    num4.Text = range.ToString();
+
+                if (i ==5)
+                    num5.Text = range.ToString();
+
+                if (i ==6)
+                    num6.Text = range.ToString();
+
+                if (i ==7)
+                    num7.Text = range.ToString();
+
+            }
+         
+
+            TicketCreation(null,null);
+
+            
+
+        }
+
+        private void displayAllTickets(object sender, RoutedEventArgs e)
+        {
+          
+
+            for (int i = 0; i < lottotickets.Count; i++)
+            {
+                dispListbox.Items.Add(lottotickets[i]);
+            }
+
+
+
+
+
+            /*   foreach ( var t in lottotickets)
+               {
+                   dispListbox.Items.Add(t);
+               }*/
+
+
+
+        }
+
+        private void clear(object sender, RoutedEventArgs e)
+        {
+
+            dispListbox.Items.Clear();
+
+        }
+    }
+    }
+
+
+

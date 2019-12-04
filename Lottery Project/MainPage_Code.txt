@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using System.Collections;
+
+
+
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+
+namespace Lottery_Interface
+{
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class MainPage : Page
+    {
+
+    //    List<Pages.Lotto> ltNumbers;
+      //  Pages.Lotto lotto;
+
+        public MainPage()
+        {
+            this.InitializeComponent();
+
+         //   ltNumbers = new List<Pages.Lotto>();
+         //   lotto = new Pages.Lotto();
+            
+        }
+
+    
+
+        private void OnGoPageLotto_Click(object sender, RoutedEventArgs e)
+        {
+            mainFarme.Navigate(typeof(Pages.Lotto));
+          
+            
+        }
+    }
+}
